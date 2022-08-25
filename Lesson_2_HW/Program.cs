@@ -11,13 +11,18 @@ namespace Lesson_2_HW
              * освободившиеся справа элементы значениями –1
              */
 
-            Console.WriteLine("\tЗадание №1");
+            const string TASK = "\tЗадание №";
+            const string ARRAY_SOURCE = "Исходный массив:\t";
+            const string CONVERTED_ARRAY = "Преобразованный массив: ";
+            int numberTask = 1;
+
+            Console.WriteLine($"{TASK}{numberTask++}");
 
             int[] iArray = new int[10] { 0, 2, 0, 3, 0, 6, 5, 0, 5, 1 };
-            Console.Write("Исходный массив:\t");
+            Console.Write(ARRAY_SOURCE);
             foreach (var item in iArray)
             {
-                Console.Write(item + " ");
+                Console.Write($"{item} ");
             }
             Console.WriteLine();
 
@@ -41,10 +46,10 @@ namespace Lesson_2_HW
 
             bufArray.CopyTo(iArray, index: 0);
 
-            Console.Write("Преобразованный массив: ");
+            Console.Write(CONVERTED_ARRAY);
             foreach (var item in iArray)
             {
-                Console.Write(item + " ");
+                Console.Write($"{item} ");
             }
             Console.WriteLine("\n");
             // #############################
@@ -54,7 +59,7 @@ namespace Lesson_2_HW
              * отрицательные элементы, а потом положительные (0 считать положительным)
              */
 
-            Console.WriteLine("\tЗадание №2");
+            Console.WriteLine($"{TASK}{numberTask++}");
 
             int[] iArray1 = new int[15];
             Random random = new Random();
@@ -62,10 +67,10 @@ namespace Lesson_2_HW
             {
                 iArray1[i] = random.Next(-3, 3);
             }
-            Console.Write("Исходный массив:\t");
+            Console.Write(ARRAY_SOURCE);
             foreach (var item in iArray1)
             {
-                Console.Write(item + " ");
+                Console.Write($"{item} ");
             }
             Console.WriteLine();
 
@@ -92,10 +97,10 @@ namespace Lesson_2_HW
 
             bufArray.CopyTo(iArray1, index: 0);
 
-            Console.Write("Преобразованный массив: ");
+            Console.Write(CONVERTED_ARRAY);
             foreach (var item in iArray1)
             {
-                Console.Write(item + " ");
+                Console.Write($"{item} ");
             }
             Console.WriteLine("\n");
             // #############################
@@ -105,7 +110,7 @@ namespace Lesson_2_HW
              * ввести число и считает, сколько раз это число встречается в массиве.
              */
 
-            Console.WriteLine("\tЗадание №3");
+            Console.WriteLine($"{TASK}{numberTask++}");
 
             Array array = new int[20];
             for (int i = 0; i < array.Length; i++)
@@ -116,7 +121,7 @@ namespace Lesson_2_HW
             Console.Write("Массив:\t");
             foreach (var item in array)
             {
-                Console.Write(item + " ");
+                Console.Write($"{item} ");
             }
             Console.WriteLine();
 
@@ -142,12 +147,13 @@ namespace Lesson_2_HW
                     if ((int)item == number)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(item + " ");
+                        Console.BackgroundColor = ConsoleColor.Gray;
+                        Console.Write($"{item} ");
                         Console.ResetColor();
                     }
                     else
                     {
-                        Console.Write(item + " ");
+                        Console.Write($"{item} ");
                     }
                 }
                 Console.WriteLine();
@@ -169,18 +175,18 @@ namespace Lesson_2_HW
              * местами заданные столбцы.
              */
 
-            Console.WriteLine("\tЗадание №4");
+            Console.WriteLine($"{TASK}{numberTask++}");
 
             int lines = 4;
             int columns = 7;
             char[,] twoDArray = new char[lines, columns];
-            Console.WriteLine("Исходный массив:\t");
+            Console.WriteLine(ARRAY_SOURCE);
             for (int i = 0; i < twoDArray.GetLength(0); i++)
             {
                 for (int j = 0; j < twoDArray.GetLength(1); j++)
                 {
-                    twoDArray[i, j] = Convert.ToChar(random.Next(65, 80));
-                    Console.Write(twoDArray[i, j] + " ");
+                    twoDArray[i, j] = Convert.ToChar(random.Next(Convert.ToInt32('A'), Convert.ToInt32('Z')));
+                    Console.Write($"{twoDArray[i, j]} ");
                 }
                 Console.WriteLine();
             }
@@ -206,27 +212,21 @@ namespace Lesson_2_HW
             }
             else
             {
-                char[] columnArray1 = new char[lines];
-                for (int i = 0; i < columnArray1.Length; i++)
+                char[] columnArrayBuffer = new char[lines];
+                for (int i = 0; i < columnArrayBuffer.Length; i++)
                 {
-                    columnArray1[i] = twoDArray[i, (int)column1];
+                    columnArrayBuffer[i] = twoDArray[i, (int)column1];
                 }
-                char[] columnArray2 = new char[lines];
-                for (int i = 0; i < columnArray2.Length; i++)
+                for (int i = 0; i < lines; i++)
                 {
-                    columnArray2[i] = twoDArray[i, (int)column2];
+                    twoDArray[i, (int)column1] = twoDArray[i, (int)column2];
                 }
-
-                for (int i = 0; i < columnArray1.Length; i++)
+                for (int i = 0; i < columnArrayBuffer.Length; i++)
                 {
-                    twoDArray[i, (int)column2] = columnArray1[i];
-                }
-                for (int i = 0; i < columnArray2.Length; i++)
-                {
-                    twoDArray[i, (int)column1] = columnArray2[i];
+                    twoDArray[i, (int)column2] = columnArrayBuffer[i];
                 }
 
-                Console.WriteLine("Преобразованный массив: ");
+                Console.WriteLine(CONVERTED_ARRAY);
                 for (int i = 0; i < twoDArray.GetLength(0); i++)
                 {
                     for (int j = 0; j < twoDArray.GetLength(1); j++)
@@ -234,12 +234,13 @@ namespace Lesson_2_HW
                         if (j == (int)column1 || j == (int)column2)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write(twoDArray[i, j] + " ");
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.Write($"{twoDArray[i, j]} ");
                             Console.ResetColor();
                         }
                         else
                         {
-                            Console.Write(twoDArray[i, j] + " ");
+                            Console.Write($"{twoDArray[i, j]} ");
                         }
                     }
                     Console.WriteLine();
